@@ -101,7 +101,7 @@ auto MakeLazy(CALLABLE&& expr)
 // all types that will be applied for any attempted conversion to
 // `LazyType_Base`?
 #define EAGER_ARG(val) \
-  LazyType_Eager<typename std::remove_reference<decltype(val)>::type>(val)
+  LazyType_Eager<typename std::remove_reference<decltype(val)>::type>{val}
 
 // Must provide a REFERENCE so that the actual type will not be sliced...but we
 // don't actually want a mutable reference to a long-lived object, so we take an
