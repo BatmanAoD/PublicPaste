@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "OptionalLazyArgs.hpp"
+#include "OptionallyLazy.hpp"
 
 void PermitLazy(
     LAZY_PARAM(int) my_int)
