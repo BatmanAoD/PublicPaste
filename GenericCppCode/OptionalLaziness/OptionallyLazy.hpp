@@ -43,6 +43,10 @@ class LazyType_Base
 template <typename VAL_TYPE, typename CALLABLE>
 class LazyType_TrueLazy : public LazyType_Base<VAL_TYPE>
 {
+  // friend LazyType_TrueLazy<VAL_TYPE, CALLABLE> MakeLazy<CALLABLE>(CALLABLE&& expr);
+  // With a working friend declaration, make all constructors private; `protect`
+  // default constructors in `LazyType_Base`
+  
   public:
     LazyType_TrueLazy(CALLABLE&& expr)
       : LazyType_Base<VAL_TYPE>{std::forward<CALLABLE>(expr)}
