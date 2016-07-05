@@ -3,7 +3,7 @@
 #include "OptionallyLazy.hpp"
 
 void PermitLazy(
-    LAZY_PARAM(int) my_int)
+    OPTIONALLY_LAZY(int) my_int)
 {
   std::cout << "Called 'PermitLazy'." << std::endl;
   std::cout << "Got possibly-lazy int: " << my_int << std::endl;
