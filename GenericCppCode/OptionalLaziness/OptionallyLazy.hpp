@@ -12,7 +12,7 @@ class LazyType_Base
   protected:
     // For LazyType_TrueLazy
     template <typename CALLABLE>
-    LazyType_Base(CALLABLE&& expr)
+    explicit LazyType_Base(CALLABLE&& expr)
     { 
       static_assert(
           std::is_same<
@@ -23,7 +23,7 @@ class LazyType_Base
     // For LazyType_Eager
     // =default is not permitted by GCC here; see
     // http://stackoverflow.com/q/38213809/1858225
-    LazyType_Base(void) {}
+    explicit LazyType_Base(void) {}
     
     // C++14: move-constructor must be defined for use by MakeLazy()
     LazyType_Base(LazyType_Base&&) =default;
@@ -45,7 +45,7 @@ class LazyType_TrueLazy : public LazyType_Base<VAL_TYPE>
   // default constructors in `LazyType_Base`
   
   public:
-    LazyType_TrueLazy(CALLABLE&& expr)
+    explicit LazyType_TrueLazy(CALLABLE&& expr)
       : LazyType_Base<VAL_TYPE>{std::forward<CALLABLE>(expr)}
       , expr_{std::forward<CALLABLE>(expr)}
     {}
