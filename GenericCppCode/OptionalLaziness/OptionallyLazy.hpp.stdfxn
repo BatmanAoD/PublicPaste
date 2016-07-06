@@ -1,0 +1,41 @@
+#pragma once
+
+#include <functional>
+
+// Uses dynamic dispatch to permit lazy OR eager argument evaluation at the
+// caller's discretion, with uniform access to the final value from the callee's
+// perspective.
+template <typename VAL_TYPE>
+class LazyType
+{
+  public:
+    // Lazy constructor
+    LazyType(std::function<VAL_TYPE(void)> cb)
+      : cb_{cb}
+    {}
+    
+    // Eager constructor
+    LazyType(VAL_TYPE val)
+      : cb_{[val]{return val;}}
+    {}
+    
+    operator VAL_TYPE(void)
+    {
+      return cb_();
+    }
+    
+  private:
+    std::function<VAL_TYPE(void)> cb_;
+};
+
+// In-place lambda-construction, converted to std::function
+#define LAZY_ARG(expr) \
+  LazyType<typename std::remove_reference<decltype(expr)>::type>{ \
+      [&](void)->auto { return expr; }}
+
+// This is unnecessary with the basic `LazyType` implementation
+#define EAGER_ARG(val) \
+  (val)
+
+#define OPTIONALLY_LAZY(type) \
+  LazyType<type>
