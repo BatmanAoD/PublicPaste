@@ -1,7 +1,9 @@
 #include "Benchmark_stdFxn.hpp"
 #include "Benchmark_noStdFxn.hpp"
 
-static const auto NUM_ITERS = 10000000;
+#ifndef NUM_ITERS
+  static const auto NUM_ITERS = 10000000;
+#endif
 
 int main(void)
 {
