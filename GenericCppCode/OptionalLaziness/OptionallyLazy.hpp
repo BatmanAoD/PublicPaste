@@ -25,15 +25,11 @@ class LazyType_Base
     // http://stackoverflow.com/q/38213809/1858225
     LazyType_Base(void) {}
     
+    // C++14: move-constructor must be defined for use by MakeLazy()
+    LazyType_Base(LazyType_Base&&) =default;
+    
   public:
-    // Both compilers suddenly fail when this is introduced, attempting to
-    // instantiate `LazyType_Base<LazyType_Base<VAL_TYPE>>`, which makes no
-    // sense. See http://stackoverflow.com/q/38214138/1858225
-    // In general, not making the destructor virtual *should* be safe as long as
-    // users are just using this type as it's intended (i.e. for lazy arguments
-    // to functions, to be used immediately or discarded without passing
-    // pointers around for deletion later).
-    // virtual ~LazyType_Base(void) =default;
+    virtual ~LazyType_Base(void) =default;
     
     virtual operator VAL_TYPE(void) =0;
 };
@@ -43,6 +39,7 @@ class LazyType_Base
 template <typename VAL_TYPE, typename CALLABLE>
 class LazyType_TrueLazy : public LazyType_Base<VAL_TYPE>
 {
+  // It's not clear how to declare a `friend` function correctly here.
   // friend LazyType_TrueLazy<VAL_TYPE, CALLABLE> MakeLazy<CALLABLE>(CALLABLE&& expr);
   // With a working friend declaration, make all constructors private; `protect`
   // default constructors in `LazyType_Base`
@@ -107,5 +104,6 @@ auto MakeLazy(CALLABLE&& expr)
 // don't actually want a mutable reference to a long-lived object, so we take an
 // r-value reference. This is very simple to use with the `LAZY_ARG` and
 // `EAGER_ARG` macros.
+// XXX This apparently DOES NOT work with `const` types.
 #define OPTIONALLY_LAZY(type) \
   LazyType_Base<type>&&
