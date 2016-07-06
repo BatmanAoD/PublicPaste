@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for f in Benchmark*.cpp; do
+    g++ -c -std=c++14 -Wall -Wextra $f -o $f.o
+done
+
+g++ -std=c++14 -Wall -Wextra -o benchmark Benchmark*.cpp.o
