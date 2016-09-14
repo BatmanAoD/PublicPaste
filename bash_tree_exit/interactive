@@ -1,0 +1,12 @@
+#!/bin/bash
+
+scriptpath="$(readlink -f "${BASH_SOURCE[0]}")"
+scriptdir=$(dirname "${scriptpath}")
+
+sudo "${scriptdir}/start_script"
+
+echo "Hit <ENTER> to exit"
+
+read dummy
+
+echo "Exiting start-script"

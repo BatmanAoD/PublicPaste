@@ -1,0 +1,8 @@
+#!/bin/bash
+
+scriptpath="$(readlink -f "${BASH_SOURCE[0]}")"
+scriptdir=$(dirname "${scriptpath}")
+
+echo gnome-parent PID: $PID
+
+gnome-terminal -e "${scriptdir}/interactive"
