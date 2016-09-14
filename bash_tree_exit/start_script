@@ -9,5 +9,7 @@ echo "start-script PID = $$."
 # nohup sudo ... & disown
 # sudo ... & disown
 # sudo ... &
-sudo -b -u kjstrand nohup "${scriptdir}/daemon_proc" >> /tmp/daemon_instance_$$
+# (sudo ... & disown)
 
+# This works:
+sudo -b -u kjstrand nohup "${scriptdir}/daemon_proc" >> /tmp/daemon_instance_$$

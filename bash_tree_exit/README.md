@@ -11,6 +11,19 @@ into a 'daemon' by disowning it FAIL, because the script closes when
  * [Alternate approach I didn't try](http://stackoverflow.com/a/20338327/1858225)
        (sudo ... &)
 
-# Successful approach
+# Approaches
 
-Use `sudo -b`
+## Known to fail
+
+ * `nohup sudo ... & disown`
+ * `sudo ... & disown`
+ * `sudo ... &`
+ * `(sudo ... & disown)`
+
+## Known to work
+
+    sudo -b
+
+## Unknown
+
+    screen (not installed)
