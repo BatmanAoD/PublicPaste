@@ -1,0 +1,209 @@
+#!/usr/bin/python
+
+from math import log
+
+# TODO support fractions
+
+SUFFIX_plus10 = "teen"
+# Use the standard short scale for number names
+SUFFIX_e = {
+    1: "ty",
+    2: " hundred",
+    3: " thousand",
+    6: " million",
+    9: " billion",
+    12: " trillion",
+    # TODO add larger numbers (quadrillion, etc)
+    # See https://en.wikipedia.org/wiki/Names_of_large_numbers
+    100: " googol",
+    10**100: " googolplex"}
+
+LIMIT_large_suffix_e = 12
+
+POWERS = sorted(SUFFIX_e.keys(), reverse=True)
+
+WORD = {
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    10: "ten",
+    11: "eleven",
+    12: "twelve"}
+
+LITERALS = sorted(WORD.keys(), reverse=True)
+
+ROOT = WORD.copy()
+
+# Words ending in 't' should have roots with the 't' elided
+ROOT.update({dig: WORD[dig][:-1] for dig in WORD if WORD[dig][-1] == 't'})
+
+# Special-case roots
+ROOT.update({
+    2: "twen",
+    3: "thir",
+    5: "fif"})
+
+
+def convert_num(num, use_root=False):
+    if num == 0:
+        return "zero"
+    if num < 0:
+        return "negative " + convert_num(-num)
+    if num <= LITERALS[0]:
+        if use_root:
+            return ROOT[num]
+        return WORD[num]
+    if num < 20:
+        return ROOT[num - 10] + SUFFIX_plus10
+    for p in POWERS:
+        if p > LIMIT_large_suffix_e and log(num, 10) < p:
+            # Computing `10**p` is expensive for large p, so skip if possible
+            continue
+        # TODO since we've already computed `log(num, 10)`, is there a clever
+        # way to use that instead of the `divmod` with `10**p`?
+        q, remainder = divmod(num, 10**p)
+        if q:
+            suffix = SUFFIX_e[p]
+            q_use_root = (suffix[0] != ' ')
+            str_rem = (' ' + convert_num(remainder)) if remainder else ""
+            return convert_num(q, q_use_root) + suffix + str_rem
+    assert(False, "No powers matched!")
+
+print convert_num(0)
+print convert_num(1)
+print convert_num(2)
+print convert_num(3)
+print convert_num(4)
+print convert_num(5)
+print convert_num(6)
+print convert_num(7)
+print convert_num(8)
+print convert_num(9)
+print convert_num(10)
+print convert_num(11)
+print convert_num(12)
+print convert_num(13)
+print convert_num(14)
+print convert_num(16)
+print convert_num(17)
+print convert_num(18)
+print convert_num(19)
+print convert_num(20)
+print convert_num(21)
+print convert_num(22)
+print convert_num(23)
+print convert_num(24)
+print convert_num(25)
+print convert_num(26)
+print convert_num(28)
+print convert_num(29)
+print convert_num(30)
+print convert_num(31)
+print convert_num(32)
+print convert_num(42)
+print convert_num(52)
+print convert_num(62)
+print convert_num(72)
+print convert_num(82)
+print convert_num(92)
+print convert_num(99)
+print convert_num(100)
+print convert_num(101)
+print convert_num(102)
+print convert_num(103)
+print convert_num(104)
+print convert_num(105)
+print convert_num(106)
+print convert_num(107)
+print convert_num(108)
+print convert_num(109)
+print convert_num(110)
+print convert_num(111)
+print convert_num(112)
+print convert_num(113)
+print convert_num(114)
+print convert_num(115)
+print convert_num(116)
+print convert_num(117)
+print convert_num(118)
+print convert_num(119)
+print convert_num(120)
+print convert_num(121)
+print convert_num(122)
+print convert_num(123)
+print convert_num(124)
+print convert_num(125)
+print convert_num(126)
+print convert_num(127)
+print convert_num(128)
+print convert_num(129)
+print convert_num(130)
+print convert_num(131)
+print convert_num(132)
+print convert_num(726)
+print convert_num(999)
+print convert_num(1000)
+print convert_num(1001)
+print convert_num(1990)
+print convert_num(-0)
+print convert_num(-1)
+print convert_num(-2)
+print convert_num(-3)
+print convert_num(-4)
+print convert_num(-5)
+print convert_num(-6)
+print convert_num(-7)
+print convert_num(-8)
+print convert_num(-9)
+print convert_num(-10)
+print convert_num(-11)
+print convert_num(-12)
+print convert_num(-13)
+print convert_num(-14)
+print convert_num(-16)
+print convert_num(-17)
+print convert_num(-18)
+print convert_num(-19)
+print convert_num(-20)
+print convert_num(-21)
+print convert_num(-22)
+print convert_num(-23)
+print convert_num(-24)
+print convert_num(-25)
+print convert_num(-26)
+print convert_num(-28)
+print convert_num(-29)
+print convert_num(-30)
+print convert_num(-31)
+print convert_num(-32)
+print convert_num(-42)
+print convert_num(-52)
+print convert_num(-62)
+print convert_num(-72)
+print convert_num(-82)
+print convert_num(-92)
+print convert_num(-99)
+print convert_num(-100)
+print convert_num(-101)
+print convert_num(-102)
+print convert_num(-103)
+print convert_num(-104)
+print convert_num(-105)
+print convert_num(-106)
+print convert_num(-107)
+print convert_num(-108)
+print convert_num(-109)
+print convert_num(1000000000000)
+print convert_num(1000100000000)
+print convert_num(1000100000000)
+print convert_num(1000000000000000000000000)
+print convert_num(10000000000001000000000000)
+print convert_num(10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+# Currently *veeeeeeery* slow.
+# print convert_num(10**10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
