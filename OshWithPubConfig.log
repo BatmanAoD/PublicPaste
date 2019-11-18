@@ -1,0 +1,37 @@
+  shopt -s checkhash
+  ^~~~~
+/Users/kstrand/.bash_rcbase:174: 'shopt' got invalid option 'checkhash'
+  shopt -s globstar
+  ^~~~~
+/Users/kstrand/.bash_rcbase:180: 'shopt' got invalid option 'globstar'
+  shopt -s autocd
+  ^~~~~
+/Users/kstrand/.bash_rcbase:181: 'shopt' got invalid option 'autocd'
+  set -o monitor          # enable job control
+         ^~~~~~~
+/Users/kstrand/.bash_rcbase:218: 'set' got invalid option 'monitor'
+  set -o ignoreeof          # do not let CNTL-D exit the shell
+         ^~~~~~~~~
+/Users/kstrand/.bash_rcbase:291: 'set' got invalid option 'ignoreeof'
+  shopt -s checkwinsize    # Reset LINES and COLUMNS after each command
+  ^~~~~
+/Users/kstrand/.bash_rcbase:292: 'shopt' got invalid option 'checkwinsize'
+  bind "set completion-ignore-case on"
+  ^~~~
+/Users/kstrand/.bash_rcbase:295: 'bind' not found
+  bind "set show-all-if-ambiguous on"
+  ^~~~
+/Users/kstrand/.bash_rcbase:296: 'bind' not found
+  bind Space:magic-space # ...for some reason this can't come earlier...?
+  ^~~~
+/Users/kstrand/.bash_rcbase:297: 'bind' not found
+  complete -F _alacritty alacritty
+  ^~~~~~~~
+/Users/kstrand/.completions/alacritty.bash:4: 'complete' Function '_alacritty' not found
+  			for c in ${=1}; do
+  			           ^
+/Users/kstrand/.completions/git-completion.bash:2992: Unexpected token '='
+Sourcing '/Users/kstrand/.bash_!(bootstrap|rcbase|profile|history|sessions|logout|*.*)'
+      . "${bashfile}"
+        ^
+/Users/kstrand/.bashrc:48: source '/Users/kstrand/.bash_!(bootstrap|rcbase|profile|history|sessions|logout|*.*)' failed: No such file or directory
