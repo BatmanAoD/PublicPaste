@@ -1,4 +1,4 @@
-# Insane UI choices
+# VERY VERY BAD UI choices
 
 ## Microsoft
 
