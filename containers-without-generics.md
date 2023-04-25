@@ -12,7 +12,8 @@ separate RTTI for A, B, and C?)
 Containers must define iteration and lookups, but there must be a
 compiler-feature to wrap the _key_ and _item_ types with an RTTI wrapper
 
-...something something pattern matching
+Pattern matching is needed to go from a container with RTTI to a concrete
+container type.
 
 Covariance for function signatures, but *not* for expressions: i.e. these
 dynamically-typed containers would not follow the Liskov principle.
@@ -60,9 +61,6 @@ with pattern matching.
 
 These are the "magic" functions for containers (using `Ctr<A,*B>` as a user-defined name):
 
-...other than syntax, what's "magic" about these? In particular, are the ones
-with normal function-call syntax "magic" at all?
-
 ```
   Ctr[A] -> Option<*B>
   // `gen` is a keyword for a generator
@@ -83,6 +81,8 @@ with normal function-call syntax "magic" at all?
   Ctr.append(*B)
   Ctr.extend(gen<*B>) // ... `gen` should have size-hint when possible
 ```
+...other than syntax, what's "magic" about these? In particular, are the ones
+with normal function-call syntax "magic" at all?
 
 User-defined functions:
 
